@@ -26,15 +26,13 @@ public class IndexSearch {
             System.out.println("No such file.");
         }
 
-
-
         try {
 
             //load arraylist into int array
             size = Integer.parseInt(numList.get(0));  // assigns the size of the data
             arr = new int[size];
 
-            for (int i = 1; i < numList.size(); i++) {
+            for (int i = 1; i < (numList.size() - 1); i++) {
                 arr[i] = Integer.parseInt(numList.get(i));
             }
         } catch (Exception e){
