@@ -2,19 +2,19 @@
  * Created by everythingtech on 2017-01-31.
  */
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class IndexSearch {
 
     public static void main(String[] args) {
         List<String> numList = new ArrayList<String>();
         int[] arr = null;
-        String singleLine = "";
+        String singleLine;
         File input = new File("input.txt");
         System.out.println(input.getAbsolutePath());
-        int size = 0;
+        int size;
+        Map<Integer, Integer> map = new HashMap<>();
+
 
         //load file into arraylist
         try {
@@ -26,14 +26,14 @@ public class IndexSearch {
             System.out.println("No such file.");
         }
 
+        //load arraylist into int array
         try {
-
-            //load arraylist into int array
             size = Integer.parseInt(numList.get(0));  // assigns the size of the data
             arr = new int[size];
 
-            for (int i = 1; i < (numList.size() - 1); i++) {
-                arr[i] = Integer.parseInt(numList.get(i));
+            for (int i = 1; i < numList.size(); i++) {
+                arr[i-1] = Integer.parseInt(numList.get(i));
+
             }
         } catch (Exception e){
             System.out.println("File contains non-numeric values.");
@@ -41,9 +41,22 @@ public class IndexSearch {
 
         Arrays.sort(arr); // sorts the array
 
+
+
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+
+            map.putIfAbsent(arr[i],1);
+            if(i == (arr.length - 1)){
+                break;
+            }
+            if(arr[i] == arr[i+1]){
+                map.replace(arr[i], map.get(arr[i])+1);
+            }
         }
+
+        System.out.println(map.toString());
     }
+
+
 }
 
